@@ -26,7 +26,7 @@ public class Torpedo_1 implements BattleshipsPlayer
     {
     }
 
-    @Override
+    @Override           // leg her
     public void placeShips(Fleet fleet, Board board)
     {
         sizeX = board.sizeX();

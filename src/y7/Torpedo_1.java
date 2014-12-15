@@ -22,6 +22,9 @@ public class Torpedo_1 implements BattleshipsPlayer {
     private final static Random rnd = new Random();
     private int sizeX;
     private int sizeY;
+    private int nextX;
+    private int nextY;
+    
 
     private ArrayList<Position> posArray = new ArrayList<Position>();
 
@@ -47,6 +50,18 @@ public class Torpedo_1 implements BattleshipsPlayer {
             }
             board.placeShip(pos, s, vertical);
         }
+//        Position pos1 = new Position(1,1);
+//        Ship s1 = new Ship(2);
+//        board.placeShip(pos1, s1, true);
+//        
+//        Position pos2 = new Position(1,1);
+//        Ship s2 = new Ship(3);
+//        board.placeShip(pos1, s1, true);
+//        
+//        Position pos3 = new Position(1,1);
+//        Ship s3 = new Ship(3);
+//        board.placeShip(pos1, s1, true);
+//        
     }
 
     @Override
@@ -58,21 +73,28 @@ public class Torpedo_1 implements BattleshipsPlayer {
     @Override
     public Position getFireCoordinates(Fleet enemyShips) {
 
-        Position pos = getFiringPosition();
-        posArray.add(pos);
-
-        while (true) {
-            for (Position posObject : posArray) {
-                if (posObject == pos) {
-                    pos = getFiringPosition();
-                    System.out.println(pos);
-                    break;
-                }
+//        for (Position posObject : posArray) {
+//            if (posObject != pos) {
+//                System.out.println("Tilføjer til array");
+//                posArray.add(pos);
+//            } else if (posObject == pos) {
+//                pos = getFiringPosition();
+//                System.out.println("Ny  " + pos.toString());
+//                break;
+//            }
+//
+//        }
+//        return pos;
+        Position shot = new Position(nextX, nextY);
+        ++nextX;
+        if (nextX >= sizeX) {
+            nextX = 0;
+            ++nextY;
+            if (nextY >= sizeY) {
+                nextY = 0;
             }
-            System.out.println(pos);
-            return pos;
         }
-
+        return shot;
     }
 
     @Override
@@ -103,9 +125,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
     private Position getFiringPosition() {
         int x = rnd.nextInt(sizeX);
         int y = rnd.nextInt(sizeY);
-
         Position pos = new Position(x, y);
-
         return pos;
     }
 }

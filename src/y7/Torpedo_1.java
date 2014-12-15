@@ -61,15 +61,17 @@ public class Torpedo_1 implements BattleshipsPlayer {
         Position pos = getFiringPosition();
         posArray.add(pos);
 
-        for (Position posObject : posArray) {
-            if (posObject == pos) {
-                pos = getFiringPosition();
-            } else {
-
+        while (true) {
+            for (Position posObject : posArray) {
+                if (posObject == pos) {
+                    pos = getFiringPosition();
+                    System.out.println(pos);
+                    break;
+                }
             }
+            System.out.println(pos);
+            return pos;
         }
-
-        return pos;
 
     }
 

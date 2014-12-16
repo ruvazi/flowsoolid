@@ -40,7 +40,7 @@ public class Torpedo_1_Factory implements PlayerFactory<BattleshipsPlayer>
     @Override
     public String getName()
     {
-        return "Random player " + id;               //return vores player navn
+        return "Torpedo_1 " + id;               //return vores player navn
     }
     
 }

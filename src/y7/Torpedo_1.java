@@ -24,7 +24,11 @@ public class Torpedo_1 implements BattleshipsPlayer {
     private int sizeY;
 
     private ArrayList<Position> posArray = new ArrayList<Position>();
-
+    private ArrayList<Position> posArrayHit = new ArrayList<Position>(); //bliver slettet løbende
+    private ArrayList<Position> posArrayHitSave = new ArrayList<Position>(); //gemmer alle positive for hele runden
+    
+    int posCount= 0;
+    
     public Torpedo_1() {
     }
 
@@ -77,7 +81,11 @@ public class Torpedo_1 implements BattleshipsPlayer {
 
     @Override
     public void hitFeedBack(boolean hit, Fleet enemyShips) {
-        //Do nothing
+        
+        if(hit){
+        
+        posCount++;
+        }
     }
 
     @Override
@@ -101,10 +109,24 @@ public class Torpedo_1 implements BattleshipsPlayer {
     }
 
     private Position getFiringPosition() {
+        Position pos;
+        
+//        for (int i = 0; i < 1; i++) {
+        if (posCount>0) {
+            pos = posArray.get(posArray.size());
+            posArrayHit.add(pos);
+            posArrayHitSave.add(pos);
+            posCount--;
+        }   
+        
         int x = rnd.nextInt(sizeX);
         int y = rnd.nextInt(sizeY);
 
-        Position pos = new Position(x, y);
+        pos = new Position(x, y);
+            
+        
+
+        
 
         return pos;
     }

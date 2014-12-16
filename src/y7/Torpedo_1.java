@@ -34,7 +34,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
     public void placeShips(Fleet fleet, Board board) {
         sizeX = board.sizeX();
         sizeY = board.sizeY();
-        int state = rnd.nextInt();
+        int state = rnd.nextInt(4) + 0;
 
 //        for (int i = 0; i < fleet.getNumberOfShips(); ++i) {
 //            Ship s = fleet.getShip(i);
@@ -55,23 +55,23 @@ public class Torpedo_1 implements BattleshipsPlayer {
 //        }
         switch (state) {
             case 0:
-                Position pos1 = new Position(4, 0);
+                Position pos1 = new Position(0, 4);
                 Ship s1 = fleet.getShip(2);
                 board.placeShip(pos1, s1, false);
 
-                Position pos2 = new Position(3, 0);
+                Position pos2 = new Position(0, 3);
                 Ship s2 = fleet.getShip(3);
                 board.placeShip(pos2, s2, false);
 
-                Position pos3 = new Position(2, 0);
+                Position pos3 = new Position(2, 9);
                 Ship s3 = fleet.getShip(3);
                 board.placeShip(pos3, s3, false);
 
-                Position pos4 = new Position(1, 0);
+                Position pos4 = new Position(0, 1);
                 Ship s4 = fleet.getShip(4);
                 board.placeShip(pos4, s4, false);
 
-                Position pos5 = new Position(0, 0);
+                Position pos5 = new Position(3, 0);
                 Ship s5 = fleet.getShip(5);
                 board.placeShip(pos5, s5, false);
                 break;
@@ -151,18 +151,6 @@ public class Torpedo_1 implements BattleshipsPlayer {
     @Override
     public Position getFireCoordinates(Fleet enemyShips) {
 
-//        for (Position posObject : posArray) {
-//            if (posObject != pos) {
-//                System.out.println("Tilføjer til array");
-//                posArray.add(pos);
-//            } else if (posObject == pos) {
-//                pos = getFiringPosition();
-//                System.out.println("Ny  " + pos.toString());
-//                break;
-//            }
-//
-//        }
-//        return pos;
         Position shot = new Position(nextX, nextY);
         ++nextX;
         if (nextX >= sizeX) {
@@ -172,6 +160,8 @@ public class Torpedo_1 implements BattleshipsPlayer {
                 nextY = 0;
             }
         }
+        posArray.add(shot);
+        
         return shot;
     }
 
@@ -204,6 +194,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
         int x = rnd.nextInt(sizeX);
         int y = rnd.nextInt(sizeY);
         Position pos = new Position(x, y);
+
         return pos;
     }
 

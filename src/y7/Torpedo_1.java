@@ -25,11 +25,12 @@ public class Torpedo_1 implements BattleshipsPlayer {
     private int nextX;
     private int nextY;
 
-    private ArrayList<Position> posArray = new ArrayList<Position>();
+    private ArrayList<Position> posArray = new ArrayList<>();
     private ArrayList<Position> posArrayHit = new ArrayList<Position>(); //bliver slettet løbende
     private ArrayList<Position> posArrayHitSave = new ArrayList<Position>(); //gemmer alle positive for hele runden
+    private ArrayList<Position> newCords = new ArrayList<Position>();       //array med nye cordinater til skud
 
-    int posCount = 0;
+    public int posCount = 0;
 
     public Torpedo_1() {
     }
@@ -241,7 +242,11 @@ public class Torpedo_1 implements BattleshipsPlayer {
     @Override
     public Position getFireCoordinates(Fleet enemyShips) {
 
-        Position pos = getFiringPosition();
+        Position pos;
+        pos = new Position(nextX, nextY);
+        posArray.add(pos);
+        pos = getFiringPosition();
+
         return pos;
     }
 
@@ -250,7 +255,10 @@ public class Torpedo_1 implements BattleshipsPlayer {
 
         if (hit) {
 
-            posCount++;
+            posCount = 1;
+            Position pos;
+            pos = new Position(posArray.get(posArray.size() - 1).x, posArray.get(posArray.size() - 1).y);
+            posArrayHit.add(pos);
         }
     }
 
@@ -275,19 +283,117 @@ public class Torpedo_1 implements BattleshipsPlayer {
     }
 
     private Position getFiringPosition() {
+        Position pos;
+        int x;
+        int y;
 
-        Position pos = new Position(nextX, nextY);
-        ++nextX;
-        if (nextX >= sizeX) {
-            nextX = 0;
-            ++nextY;
-            if (nextY >= sizeY) {
-                nextY = 0;
+        
+            if (posCount > 0) {
+//            System.out.println("hmm2");
+                addToArrays();
+                createNewCords();
+                if (newCords.size() > 0) {
+                    pos = newCords.get(0);
+                    newCords.remove(0);
+//                System.out.println(" postion i newCords x: " + newCords.get(0).x + " og y: " + newCords.get(0).y);
+                    return pos;
+
+                }
             }
-        }
 
-        return pos;
+            x = rnd.nextInt(sizeX);
+            y = rnd.nextInt(sizeY);
+            pos = new Position(x, y);
+            System.out.println("x: " + x + "y: " + y);
+            return pos;
+        
+    }
+    
 
+    
+
+    public void addToArrays() {
+
+        Position pos;
+
+        int s = posArray.size();
+
+        pos = posArray.get(s - 1);        //pos er lig med sidst tilføjet position
+
+        posArrayHit.add(pos);
+
+        posCount = 0;
     }
 
+    public void createNewCords() {
+        int x;
+        int y;
+        Position pos1;
+        Position pos2;
+        Position pos3;
+        Position pos4;
+//        System.out.println("hkkk2");
+
+        if (posArrayHit.size() > 0) {
+//            System.out.println("posArrayHit større end 0");
+            y = posArrayHit.get(0).y;
+            x = posArrayHit.get(0).x;
+            System.out.println("x :" + x + " y: " + y);
+            pos1 = new Position(x, y + 1);
+            pos2 = new Position(x + 1, y);
+            pos3 = new Position(x, y - 1);
+            pos4 = new Position(x - 1, y);
+
+            if (x < 1 && y > 0 && y < 9) {
+                newCords.add(pos1);
+                newCords.add(pos2);
+                newCords.add(pos3);
+            }
+
+            if (x > 8 && y > 0 && y < 9) {
+                newCords.add(pos1);
+                newCords.add(pos3);
+                newCords.add(pos4);
+            }
+
+            if (x < 9 && x > 0 && y > 0 && y < 9) {
+                newCords.add(pos1);
+                newCords.add(pos2);
+                newCords.add(pos3);
+                newCords.add(pos4);
+            }
+
+            if (x < 1 && y > 8) {
+                newCords.add(pos2);
+                newCords.add(pos3);
+            }
+
+            if (x > 8 && y > 8) {
+                newCords.add(pos4);
+                newCords.add(pos3);
+            }
+
+            if (x < 1 && y < 1) {
+                newCords.add(pos1);
+                newCords.add(pos2);
+            }
+
+            if (x > 8 && y < 1) {
+                newCords.add(pos1);
+                newCords.add(pos4);
+            }
+
+            if (x > 0 && x < 9 && y < 1) {
+                newCords.add(pos4);
+                newCords.add(pos1);
+                newCords.add(pos2);
+            }
+
+            if (x > 0 && x < 9 && y > 8) {
+                newCords.add(pos4);
+                newCords.add(pos3);
+                newCords.add(pos2);
+            }
+        }
+    }
 }

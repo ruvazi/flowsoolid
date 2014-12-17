@@ -60,7 +60,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
 //                        for (String b : a) {
 //                            if (b == SHIP) {
 //                                System.out.println("Skib det samme sted " + x + "," + (y + i));
-//                                continue;
+//                                break;
 //                            }
 //
 //                        }
@@ -78,9 +78,9 @@ public class Torpedo_1 implements BattleshipsPlayer {
 //                for (i = 0; i < s.size(); i++) {
 //                    for (String[] a : shipPlacement) {
 //                        for (String b : a) {
-//                            if (b != SHIP) {
+//                            if (b == SHIP) {
 //                                System.out.println("Skib det samme sted " + (x + i) + "," + y);
-//                                continue;
+//                                break;
 //                            }
 //
 //                        }
@@ -95,7 +95,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
 //
 //            board.placeShip(pos, s, vertical);
 //        }
-        
+
         Position pos16 = new Position(8, 3);
         Ship s16 = fleet.getShip(0);
         board.placeShip(pos16, s16, false);
@@ -125,7 +125,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
         }
 
         Position pos20 = new Position(3, 1);
-        Ship s20 = fleet.getShip(4);
+        Ship s20 = fleet.getShip(5);
         board.placeShip(pos20, s20, true);
         for (int i = 0; i < s20.size(); i++) {
             shipPlacement[3 + i][1] = "XXXXX";
@@ -165,8 +165,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
 //        for (int i = 0; i < s5.size(); i++) {
 //            shipPlacement[0][0 + i] = "XXXXX";
 //        }
-
-       // System.out.println("Starter print af 2d array");
+        // System.out.println("Starter print af 2d array");
         for (String[] a : shipPlacement) {
             for (String b : a) {
                 System.out.print(b + "\t");
@@ -175,6 +174,10 @@ public class Torpedo_1 implements BattleshipsPlayer {
         }
         System.out.println("-----------------------------------------------------------------------------");
 
+        /**
+         * Disse harcodede positioner kan man ikke regne med, da de er baseret
+         * på et koordinat system
+         */
 //        switch (state) {
 //            case 0:
 //                Position pos1 = new Position(4, 0);

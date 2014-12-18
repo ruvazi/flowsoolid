@@ -65,57 +65,70 @@ public class Torpedo_1 implements BattleshipsPlayer {
         sizeX = board.sizeX();
         sizeY = board.sizeY();
         String[][] shipPlacement = new String[sizeX][sizeY];
+        boolean isShipHere = false;
         int state = rnd.nextInt(4) + 0;
 
-//        for (int i = 0; i < fleet.getNumberOfShips(); ++i) {
-//
-//            Ship s = fleet.getShip(i);
-//            boolean vertical = rnd.nextBoolean();
-//            Position pos;
-//
-//            if (vertical) {
-//                System.out.println("Generere skib " + s.size() + " vertikalt");
-//                int x = rnd.nextInt(sizeX);
-//                int y = rnd.nextInt(sizeY - (s.size() - 1));
-//                for (i = 0; i < s.size(); i++) {
-//                    for (String[] a : shipPlacement) {
-//                        for (String b : a) {
-//                            if (b == SHIP) {
-//                                System.out.println("Skib det samme sted " + x + "," + (y + i));
-//                                continue;
-//                            }
-//
-//                        }
-//
-//                    }
-//                    System.out.println("Sætter skib " + s.size() + " ind i 2d array");
-//                    shipPlacement[x][y + i] = "X";
-//                }
-//
-//                pos = new Position(x, y);
-//            } else {
-//                System.out.println("Generere skib " + s.size() + " horisontalt");
-//                int x = rnd.nextInt(sizeX - (s.size() - 1));
-//                int y = rnd.nextInt(sizeY);
-//                for (i = 0; i < s.size(); i++) {
-//                    for (String[] a : shipPlacement) {
-//                        for (String b : a) {
-//                            if (b != SHIP) {
-//                                System.out.println("Skib det samme sted " + (x + i) + "," + y);
-//                                continue;
-//                            }
-//
-//                        }
-//
-//                    }
-//                    System.out.println("Sætter skib " + s.size() + " ind i 2d array");
-//                    shipPlacement[x + i][y] = "X";
-//                }
-//
-//                pos = new Position(x, y);
-//            }
-//
-//            board.placeShip(pos, s, vertical);
+        for (int i = 0; i < fleet.getNumberOfShips(); ++i) {
+
+            Ship s = fleet.getShip(i);
+            boolean vertical;
+            Position pos;
+
+            do {
+                vertical = rnd.nextBoolean();
+                if (vertical) {
+                    System.out.println("Generere skib " + s.size() + " vertikalt");
+                    int x = rnd.nextInt(sizeX);
+                    int y = rnd.nextInt(sizeY - (s.size() - 1));
+                    for (i = 0; i < s.size(); i++) {
+                        for (String[] a : shipPlacement) {
+                            for (String b : a) {
+                                if (b == SHIP) {
+                                    System.out.println("Skib det samme sted " + x + "," + (y + i));
+                                    isShipHere = true;
+                                    
+                                }
+
+                            }
+
+                        }
+                        System.out.println("Sætter skib " + s.size() + " ind i 2d array");
+                        shipPlacement[x][y + i] = "X";
+                    }
+
+                    pos = new Position(x, y);
+                } else {
+                    System.out.println("Generere skib " + s.size() + " horisontalt");
+                    int x = rnd.nextInt(sizeX - (s.size() - 1));
+                    int y = rnd.nextInt(sizeY);
+                    for (i = 0; i < s.size(); i++) {
+                        for (String[] a : shipPlacement) {
+                            for (String b : a) {
+                                if (b == SHIP) {
+                                    System.out.println("Skib det samme sted " + (x + i) + "," + y);
+                                    isShipHere = true;
+                                    
+                                }
+
+                            }
+
+                        }
+                        System.out.println("Sætter skib " + s.size() + " ind i 2d array");
+                        shipPlacement[x + i][y] = "X";
+                    }
+
+                    pos = new Position(x, y);
+                }
+            } while (!isShipHere);
+
+            board.placeShip(pos, s, vertical);
+        }
+
+//        Position pos16 = new Position(8, 3);
+//        Ship s16 = fleet.getShip(0);
+//        board.placeShip(pos16, s16, false);
+//        for (int i = 0; i < s16.size(); i++) {
+//            shipPlacement[8][3 + i] = "XX";
 //        }
         
         Position pos16 = new Position(8, 3);
@@ -187,8 +200,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
 //        for (int i = 0; i < s5.size(); i++) {
 //            shipPlacement[0][0 + i] = "XXXXX";
 //        }
-
-       // System.out.println("Starter print af 2d array");
+        // System.out.println("Starter print af 2d array");
         for (String[] a : shipPlacement) {
             for (String b : a) {
                 System.out.print(b + "\t");
@@ -197,6 +209,10 @@ public class Torpedo_1 implements BattleshipsPlayer {
         }
         System.out.println("-----------------------------------------------------------------------------");
 
+        /**
+         * Disse harcodede positioner kan man ikke regne med, da de er baseret
+         * på et koordinat system
+         */
 //        switch (state) {
 //            case 0:
 //                Position pos1 = new Position(4, 0);
@@ -337,19 +353,20 @@ public class Torpedo_1 implements BattleshipsPlayer {
     public void endMatch(int won, int lost, int draw) {
         
     }
-    
+
     public void printRamtArray() {
         for (int i = 0; i < ramtArray.size(); i++) {
-            System.out.println("ramtArray: plads " + i+ " : x-y: " + ramtArray.get(i).x+ " " + ramtArray.get(i).y);
+            System.out.println("ramtArray: plads " + i + " : x-y: " + ramtArray.get(i).x + " " + ramtArray.get(i).y);
         }
     }
-    
-    public void printNewCord(){
+
+    public void printNewCord() {
         for (int i = 0; i < newCords.size(); i++) {
-            System.out.println("newcord: plads " + i+ " : x-y: " + newCords.get(i).x+ " " + newCords.get(i).y);
-            
+            System.out.println("newcord: plads " + i + " : x-y: " + newCords.get(i).x + " " + newCords.get(i).y);
+
         }
     }
+
     private Position getFiringPosition() {
         Position pos;
         int x;  //random fra posStartArray

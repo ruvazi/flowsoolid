@@ -43,6 +43,8 @@ public class Torpedo_1 implements BattleshipsPlayer {
         posArray.clear();
         posStartArray.clear();
         newCords.clear();
+        ramtArray.clear();
+        
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 Position pos = new Position(i, j);
@@ -118,35 +120,35 @@ public class Torpedo_1 implements BattleshipsPlayer {
         Ship s16 = fleet.getShip(0);
         board.placeShip(pos16, s16, false);
         for (int i = 0; i < s16.size(); i++) {
-            shipPlacement[8][3 + i] = "XX";
+            shipPlacement[8][3 + i] = "-";
         }
 
         Position pos17 = new Position(2, 8);
         Ship s17 = fleet.getShip(1);
         board.placeShip(pos17, s17, true);
         for (int i = 0; i < s17.size(); i++) {
-            shipPlacement[2 + i][8] = "XXX";
+            shipPlacement[2 + i][8] = "-";
         }
 
         Position pos18 = new Position(0, 4);
         Ship s18 = fleet.getShip(2);
         board.placeShip(pos18, s18, false);
         for (int i = 0; i < s18.size(); i++) {
-            shipPlacement[0][4 + i] = "XXX";
+            shipPlacement[0][4 + i] = "-";
         }
 
         Position pos19 = new Position(4, 4);
         Ship s19 = fleet.getShip(3);
         board.placeShip(pos19, s19, false);
         for (int i = 0; i < s19.size(); i++) {
-            shipPlacement[4][4 + i] = "XXXX";
+            shipPlacement[4][4 + i] = "-";
         }
 
         Position pos20 = new Position(3, 1);
         Ship s20 = fleet.getShip(4);
         board.placeShip(pos20, s20, true);
         for (int i = 0; i < s20.size(); i++) {
-            shipPlacement[3 + i][1] = "XXXXX";
+            shipPlacement[3 + i][1] = "-";
         }
         
 //        Position pos1 = new Position(4, 0);
@@ -294,7 +296,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
         pos = getFiringPosition();
 
         posArray.add(pos);
-        System.out.println("tur nr: " + posArray.size() + "| x-y: " + posArray.get(posArray.size() - 1).x + " " + posArray.get(posArray.size() - 1).y);
+//        System.out.println("tur nr: " + posArray.size() + "| x-y: " + posArray.get(posArray.size() - 1).x + " " + posArray.get(posArray.size() - 1).y);
 
         return pos;
     }
@@ -309,7 +311,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
             pos = new Position(posArray.get(posArray.size() - 1).x, posArray.get(posArray.size() - 1).y);
             posArrayHit.add(pos);
             ramtArray.add(pos);
-            System.out.println("ramt!");
+//            System.out.println("ramt!");
         }
     }
 
@@ -325,12 +327,12 @@ public class Torpedo_1 implements BattleshipsPlayer {
 
     @Override
     public void endRound(int round, int points, int enemyPoints) {
-        //Do nothing
+       printRamtArray();
     }
 
     @Override
     public void endMatch(int won, int lost, int draw) {
-        printRamtArray();
+        
     }
     
     public void printRamtArray() {
@@ -356,8 +358,8 @@ public class Torpedo_1 implements BattleshipsPlayer {
         }
 
         if (newCords.size() > 0) {
-            System.out.println("newCords size(): " + newCords.size());
-            printNewCord();
+//            System.out.println("newCords size(): " + newCords.size());
+//            printNewCord();
             pos = newCords.get(0);
 //            System.out.println("newcords før check: x-y: "+ newCords.get(0).x +" "+newCords.get(0).y);
             for (int i = newCords.size() - 1; i > -1; i--) {
@@ -368,7 +370,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
             }
 //            System.out.println("newcords efter check: x-y: "+ newCords.get(0).x +" "+newCords.get(0).y);
             pos = newCords.get(0);
-            System.out.println("newcords efter ny pej 0: x-y: " + newCords.get(0).x + " " + newCords.get(0).y);
+//            System.out.println("newcords efter ny pej 0: x-y: " + newCords.get(0).x + " " + newCords.get(0).y);
             for (int i = posStartArray.size() - 1; i > -1; i--) {
                 if (pos.x == posStartArray.get(i).x && pos.y == posStartArray.get(i).y) {
                     posStartArray.remove(i);
@@ -394,7 +396,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
         for (int i = posArray.size() - 1; i > -1; i--) {
             if (pos.x == posArray.get(i).x && pos.y == posArray.get(i).y) {
                 newCords.remove(0);
-                printNewCord();
+//                printNewCord();
                 break;
             }
 

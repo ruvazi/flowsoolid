@@ -203,25 +203,26 @@ public class Torpedo_1 implements BattleshipsPlayer {
         Position pos;
         int x;
 
-//        if (Hit.size() > 0) {
-//            pos = new Position(Hit.get(0).x, Hit.get(0).y);
-////            System.out.println("\n" + "Hit: plads " + 0 + " : x-y: " + Hit.get(0).x + " " + Hit.get(0).y);
-//            Hit.remove(0);
-//            checkHitInposArray();
-//            if (Hit.isEmpty()) {
-//                nextHit.clear();
-//                getFiringPosition();
-//            }
-//            checkAllArrayInHit(pos);
-//
-//            return pos;
-//        }
-//
-//        if (nextHit.size() > 1) {
-//            createNextHit();
-//            newCords.clear();
-//            getFiringPosition();
-//        }
+        if (Hit.size() > 0) {
+            pos = new Position(Hit.get(0).x, Hit.get(0).y);
+//            System.out.println("\n" + "Hit: plads " + 0 + " : x-y: " + Hit.get(0).x + " " + Hit.get(0).y);
+            Hit.remove(0);
+            checkHitInposArray();
+            if (Hit.isEmpty()) {
+                nextHit.clear();
+                getFiringPosition();
+            }
+            newCords.clear();
+            checkAllArrayInHit(pos);
+
+            return pos;
+        }
+
+        if (nextHit.size() > 1) {
+            createNextHit();
+            newCords.clear();
+            getFiringPosition();
+        }
 
         if (newCords.size() > 0) {
 
@@ -250,7 +251,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
         x = posStartArray.size() - 1;
         pos = posStartArray.get(x);
         posStartArray.remove(x);
-
+        
         return pos;
 
     }

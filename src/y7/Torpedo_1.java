@@ -203,25 +203,25 @@ public class Torpedo_1 implements BattleshipsPlayer {
         Position pos;
         int x;
 
-        if (Hit.size() > 0) {
-            pos = new Position(Hit.get(0).x, Hit.get(0).y);
-//            System.out.println("\n" + "Hit: plads " + 0 + " : x-y: " + Hit.get(0).x + " " + Hit.get(0).y);
-            Hit.remove(0);
-            checkHitInposArray();
-            if (Hit.isEmpty()) {
-                nextHit.clear();
-                getFiringPosition();
-            }
-            checkAllArrayInHit(pos);
-
-            return pos;
-        }
-
-        if (nextHit.size() > 1) {
-            createNextHit();
-            newCords.clear();
-            getFiringPosition();
-        }
+//        if (Hit.size() > 0) {
+//            pos = new Position(Hit.get(0).x, Hit.get(0).y);
+////            System.out.println("\n" + "Hit: plads " + 0 + " : x-y: " + Hit.get(0).x + " " + Hit.get(0).y);
+//            Hit.remove(0);
+//            checkHitInposArray();
+//            if (Hit.isEmpty()) {
+//                nextHit.clear();
+//                getFiringPosition();
+//            }
+//            checkAllArrayInHit(pos);
+//
+//            return pos;
+//        }
+//
+//        if (nextHit.size() > 1) {
+//            createNextHit();
+//            newCords.clear();
+//            getFiringPosition();
+//        }
 
         if (newCords.size() > 0) {
 
@@ -244,9 +244,9 @@ public class Torpedo_1 implements BattleshipsPlayer {
             pos = shootArray.get(p);
             checkshootArrayInPosArray(pos, p);
             shootArray.remove(p);
-
             return pos;
         }
+        
         x = posStartArray.size() - 1;
         pos = posStartArray.get(x);
         posStartArray.remove(x);
@@ -289,9 +289,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
                     Hit.remove(j);
                     break;
                 }
-
             }
-
         }
     }
 
@@ -315,10 +313,11 @@ public class Torpedo_1 implements BattleshipsPlayer {
         for (int i = posArray.size() - 1; i > -1; i--) {
             if (pos.x == posArray.get(i).x && pos.y == posArray.get(i).y) {
                 shootArray.remove(x);
+                getFiringPosition();
                 break;
             }
         }
-        getFiringPosition();
+        
     }
 
     public void createNextHit() {

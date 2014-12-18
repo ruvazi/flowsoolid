@@ -16,9 +16,10 @@ public class Battleships {
         if (factory == null) {
             
             int[] ships = {2, 3, 3, 4, 5};
+
             factory = new BattleshipsGameFactory(10, 10, ships, 1);
 
-        }
+            }
         return factory;
     }
 
@@ -26,6 +27,5 @@ public class Battleships {
         int[] ships = {2, 3, 3, 4, 5};
 
         return new BattleshipsGameInstance(10, 10, ships, 1);
-
     }
 }

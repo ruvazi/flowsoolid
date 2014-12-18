@@ -30,6 +30,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
     private ArrayList<Position> posStartArray = new ArrayList<>(); //gemmer alle positive for hele runden
     private ArrayList<Position> newCords = new ArrayList<>();       //array med nye cordinater til skud
     private ArrayList<Position> ramtArray = new ArrayList<>();      // til at printe sucsesr ud
+    private ArrayList<Position> nextHit = new ArrayList<>();        // hvis et skib er ramt 2 forsæt
 
     public int posCount = 0;
 
@@ -44,6 +45,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
         posStartArray.clear();
         newCords.clear();
         ramtArray.clear();
+        nextHit.clear();
         
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -311,6 +313,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
             pos = new Position(posArray.get(posArray.size() - 1).x, posArray.get(posArray.size() - 1).y);
             posArrayHit.add(pos);
             ramtArray.add(pos);
+            nextHit.add(pos);
 //            System.out.println("ramt!");
         }
     }
@@ -327,7 +330,7 @@ public class Torpedo_1 implements BattleshipsPlayer {
 
     @Override
     public void endRound(int round, int points, int enemyPoints) {
-       printRamtArray();
+//       printRamtArray();
     }
 
     @Override
@@ -356,7 +359,10 @@ public class Torpedo_1 implements BattleshipsPlayer {
             posCount = 0;
             createNewCords();
         }
-
+        
+        if (nextHit.size()>1)
+            
+        
         if (newCords.size() > 0) {
 //            System.out.println("newCords size(): " + newCords.size());
 //            printNewCord();
